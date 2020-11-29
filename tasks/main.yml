@@ -40,6 +40,7 @@
       become: yes
       notify: reload fail2ban
       with_first_found:
+        - jail.conf.{{ fail2ban_version }}.j2
         - jail.conf.{{ fail2ban_conf_suffix }}.{{ ansible_distribution|lower }}.j2
         - jail.conf.{{ fail2ban_conf_suffix }}.j2
   tags: [fail2ban, config]

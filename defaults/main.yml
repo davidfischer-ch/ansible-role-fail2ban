@@ -10,6 +10,7 @@ fail2ban_email_sender: root@localhost
 fail2ban_find_time: 3600
 fail2ban_ignore_ips:
   - 127.0.0.1/8
+  - ::1
 fail2ban_log_encoding: auto
 fail2ban_max_retries: 10
 # logging

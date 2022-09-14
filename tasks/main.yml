@@ -27,10 +27,9 @@
 
     - set_fact:
         fail2ban_version: '{{ _fail2ban_version.stdout }}'
-        fail2ban_conf_suffix: "{{ (_fail2ban_version.stdout is version('0.9', '>='))|ternary('new', 'old') }}"
 
     - debug:
-        msg: 'fail2ban version {{ fail2ban_version }}, detected as {{ fail2ban_conf_suffix }}'
+        msg: 'fail2ban version {{ fail2ban_version }}'
 
     - name: Configure fail2ban rules
       template:
@@ -41,8 +40,8 @@
       notify: reload fail2ban
       with_first_found:
         - jail.conf.{{ fail2ban_version }}.j2
-        - jail.conf.{{ fail2ban_conf_suffix }}.{{ ansible_distribution|lower }}.j2
-        - jail.conf.{{ fail2ban_conf_suffix }}.j2
+        - jail.conf.{{ fail2ban_version.split('.')[:-1]|join('.') }}.j2
+        - jail.conf.{{ fail2ban_version.split('.')[:-2]|join('.') }}.j2
   tags: [fail2ban, config]
 
 - name: Start fail2ban service

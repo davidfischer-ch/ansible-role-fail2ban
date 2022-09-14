@@ -18,7 +18,7 @@
 # See man 5 jail.conf for details.
 #
 # [DEFAULT]
-# bantime = 3600
+# bantime = 1h
 #
 # [sshd]
 # enabled = true
@@ -315,7 +315,7 @@ logpath  = %(apache_error_log)s
 # for email addresses. The mail outputs are buffered.
 port     = {{ apache_port|default('http') }},{{ apache_port_ssl|default('https') }}
 logpath  = %(apache_access_log)s
-bantime  = 172800
+bantime  = 48h
 maxretry = 1
 
 
@@ -385,7 +385,7 @@ logpath = %(nginx_error_log)s
 # http://nginx.org/en/docs/http/ngx_http_limit_req_module.html
 # or for example see in 'config/filter.d/nginx-limit-req.conf'
 [nginx-limit-req]
-port    = http,https
+port    = {{ nginx_port|default('http') }},{{ nginx_port_ssl|default('https') }}
 logpath = %(nginx_error_log)s
 
 [nginx-botsearch]
@@ -912,7 +912,7 @@ blocktype    = RETURN
 returntype   = DROP
 action       = %(action_)s[blocktype=%(blocktype)s, returntype=%(returntype)s,
                         actionstart_on_demand=false, actionrepair_on_unban=true]
-bantime      = 3600
+bantime      = 1h
 maxretry     = 1
 findtime     = 1
 

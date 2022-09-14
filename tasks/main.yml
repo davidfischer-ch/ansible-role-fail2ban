@@ -35,7 +35,7 @@
       template:
         src: '{{ item }}'
         dest: /etc/fail2ban/jail.conf
-        mode: 0644
+        mode: '644'
       become: yes
       notify: reload fail2ban
       with_first_found:

@@ -1,4 +1,6 @@
-fail2ban_enabled: yes
+---
+
+fail2ban_enabled: true
 fail2ban_packages:
   - fail2ban
 # configuration
@@ -20,3 +22,5 @@ fail2ban_log_rotations_config_file: logrotate.j2
 fail2ban_log_rotations:
   - name: fail2ban
     config_file: '{{ fail2ban_log_rotations_config_file }}'
+
+...

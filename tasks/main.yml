@@ -1,7 +1,7 @@
 # Install and configure fail2ban
 ---
 
-- assert:
+- ansible.builtin.assert:
     that:
       - fail2ban_backend in fail2ban_backends
       - fail2ban_dns_mode in fail2ban_dns_modes
@@ -11,32 +11,32 @@
     - include_tasks: setup-repository-{{ ansible_pkg_mgr }}.yml
 
     - name: Install fail2ban packages
-      package:
+      ansible.builtin.package:
         name: '{{ fail2ban_packages }}'
         state: present
-  become: yes
+  become: true
   tags: [fail2ban, packages]
 
 - block:
     - name: Detect fail2ban version
-      shell:
+      ansible.builtin.shell:
         fail2ban-client -V | egrep -o '(Fail2Ban v)?[0-9](\.[0-9]+)+' | cut -dv -f 2
-      changed_when: no
-      check_mode: no
+      changed_when: false
+      check_mode: false
       register: _fail2ban_version
 
-    - set_fact:
+    - ansible.builtin.set_fact:
         fail2ban_version: '{{ _fail2ban_version.stdout }}'
 
-    - debug:
+    - ansible.builtin.debug:
         msg: 'fail2ban version {{ fail2ban_version }}'
 
     - name: Configure fail2ban rules
-      template:
+      ansible.builtin.template:
         src: '{{ item }}'
         dest: /etc/fail2ban/jail.conf
         mode: '644'
-      become: yes
+      become: true
       notify: reload fail2ban
       with_first_found:
         - jail.conf.{{ fail2ban_version }}.j2
@@ -45,9 +45,11 @@
   tags: [fail2ban, config]
 
 - name: Start fail2ban service
-  service:
+  ansible.builtin.service:
     name: fail2ban
     enabled: '{{ fail2ban_enabled|bool }}'
     state: "{{ fail2ban_enabled|bool|ternary('started', 'stopped') }}"
-  become: yes
+  become: true
   tags: [fail2ban, services]
+
+...

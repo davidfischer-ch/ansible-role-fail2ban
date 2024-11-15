@@ -6,3 +6,5 @@ dependencies:
     logrotate_role_action: setup
     tags: [fail2ban, dependencies]
     when: fail2ban_log_rotations|length > 0
+
+...

@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 (2024-11-15)
+
+### Features
+
+* Ubuntu 24.* compat
+
 ## v1.1.0 (2023-04-04)
 
 ### Minor compatibility breaks

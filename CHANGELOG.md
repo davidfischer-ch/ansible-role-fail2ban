@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.2 (2026-05-11)
+
+Diff: https://github.com/davidfischer-ch/ansible-role-fail2ban/compare/v1.1.1...v1.1.2
+
+### Features
+
+* Add `jail.conf` template for fail2ban 1.1.0
+
 ## v1.1.1 (2024-11-15)
 
 ### Features
